@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:music_beta/tracks.dart';
+import 'package:audio_manager/audio_manager.dart';
+import 'package:flutter_media_notification/flutter_media_notification.dart';
 
 class MusicPlayer extends StatefulWidget {
   Function changeTrack;
@@ -21,16 +23,44 @@ class MusicPlayerState extends State<MusicPlayer>
   double minimumValue = 0.0, maximumValue = 0.0, currentValue = 0.0;
   String currentTime = '', endTime = '';
   bool isPlaying = false;
+  String status = 'hidden';
 
   final AudioPlayer player = AudioPlayer();
 
   void initState() {
     super.initState();
+
     setSong(widget.songInfo);
+    MediaNotification.setListener('pause', () {
+      setState(() => status = 'pause');
+      changeStatus();
+    });
+
+    MediaNotification.setListener('play', () {
+      setState(() => status = 'play');
+      changeStatus();
+    });
+
+    MediaNotification.setListener('next', () {
+      widget.changeTrack(true);
+    });
+
+    MediaNotification.setListener('prev', () {
+      widget.changeTrack(false);
+    });
+
+    MediaNotification.setListener('select', () {});
+  }
+
+  void dispose() {
+    super.dispose();
+    stopNoti();
+    player?.dispose();
   }
 
   void setSong(SongInfo songInfo) async {
     widget.songInfo = songInfo;
+    showNoti();
     await player.setUrl(widget.songInfo.uri);
 
     currentValue = minimumValue;
@@ -41,7 +71,7 @@ class MusicPlayerState extends State<MusicPlayer>
     });
 
     isPlaying = false;
- 
+
     changeStatus();
     player.positionStream.listen((duration) {
       currentValue = duration.inMilliseconds.toDouble();
@@ -76,6 +106,22 @@ class MusicPlayerState extends State<MusicPlayer>
   }
 
   bool get wantKeepAlive => true;
+
+  void showNoti() {
+    MediaNotification.showNotification(
+        title: widget.songInfo.title, author: widget.songInfo.artist);
+  }
+
+  void pauseNoti() {
+    MediaNotification.showNotification(
+        title: widget.songInfo.title,
+        author: widget.songInfo.artist,
+        isPlaying: false);
+  }
+
+  void stopNoti() {
+    MediaNotification.hideNotification();
+  }
 
   @override
   Widget build(context) {
@@ -189,6 +235,7 @@ class MusicPlayerState extends State<MusicPlayer>
                       behavior: HitTestBehavior.translucent,
                       onTap: () {
                         changeStatus();
+                        pauseNoti();
                       },
                     ),
                     GestureDetector(

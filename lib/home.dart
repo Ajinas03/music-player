@@ -10,63 +10,93 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Container(
+        height: 800,
+        width: 800,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/images/bee2.jpg'),
+                fit: BoxFit.cover)),
 
-// appBar: AppBar(
-//  title: Padding(
-//    padding: const EdgeInsets.all(50.0),
-//    child: Text(
-//             'Bee_P',
-//             style: TextStyle(color: Colors.black),
-//           ),
-//  ),
-
-
-
-// ),
-
-
-      body: Stack(
-
-children: [
-
-Container(
-decoration: BoxDecoration(
-
-image: DecorationImage(image: AssetImage('assets/images/bee1.jpg'),
-fit: BoxFit.cover)
+// color: Colors.yellow,
+        child: Stack(
+          children: [
+            Positioned(
+            left: 60,
+              child: Container(
+                  height: 100,
+                  // color: Colors.red,
+                  child: Center(
+                    child: Text(
+                      'WelCome To Bee_P!',
+                      style: TextStyle(fontSize: 30,color: Colors.white ),
+                    ),
+                  )),
 
 
-),
-// child: RaisedButton(  onPressed: () {
+
+            ),
+//   
+
+
+  Positioned(
+    top: 600,
+              left: 115.0,
+              child: Container(
+                  height: 100,
+                  // color: Colors.purple,
+                  child: Center(
+                    child: FloatingActionButton.extended(
+                
+
+
+label:
+
+Text("GET STARTED",style: TextStyle(color: Colors.white),),
+
+icon: Icon(Icons.music_note_outlined,),
+backgroundColor: Colors.red,
+
+onPressed: (){
+
+  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => Tracks  (
+                            
+                          )));
+                
   
-//               Navigator.of(context)
-  
-//                   .push(MaterialPageRoute(builder: (context) => Tracks()));
-  
-//             },),
+},
 
-),
-
-Container(
-height: 100.0 ,
-width: 600,
-color: Colors.red.withOpacity(0.2),
-child: Padding(
-  padding: const EdgeInsets.fromLTRB(10, 20, 50, 0),
-  child:   Text('Hello guys', ),
-),
-
-),
-
-],
+                    ),
+                  )),
 
 
+
+            ),
+
+            
+
+          ],
+        ),
       ),
-    
-  
-          
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     );
   }

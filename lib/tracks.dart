@@ -21,6 +21,7 @@ class _TracksState extends State<Tracks>
   final GlobalKey<MusicPlayerState> key = GlobalKey<MusicPlayerState>();
 
   void initState() {
+    
     super.initState();
     getTracks();
   }
@@ -53,7 +54,7 @@ class _TracksState extends State<Tracks>
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.black87,
         leading: CircleAvatar(
           backgroundColor: Colors.yellow,
           backgroundImage: AssetImage('assets/images/bee.png'),
@@ -83,15 +84,15 @@ fit: BoxFit.cover)
               itemBuilder: (context, index) => ListTile(
                 leading: CircleAvatar(
                   radius: 26,
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.blue.withOpacity(0.2),
                   backgroundImage: songs[index].albumArtwork == null
                       ? AssetImage('assets/images/bee.png')
                       : FileImage(File(songs[index].albumArtwork)),
                 ),
                 title: Text(
                   songs[index].title, 
-                ),
-                subtitle: Text(songs[index].artist),
+                  style: TextStyle(color: Colors.blue[100]), ),
+                subtitle: Text(songs[index].artist, style: TextStyle(color: Colors.blue[100]),),
                 onTap: () {
                   currentIndex = index;
 
@@ -107,13 +108,13 @@ fit: BoxFit.cover)
                     content: Text('please tap on the song to play it'),
                   ));
                 },
-              ),
+              tileColor: Colors.blue.withOpacity(0.2),),
             ),
           ),
           Container(
               height: 79,
               width: 900,
-              color: Colors.white,
+              color: Colors.red.withOpacity(0.5),
               child: ListTile(
                 leading: CircleAvatar(
                   radius: 40,
