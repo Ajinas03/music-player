@@ -108,33 +108,33 @@ class _TracksState extends State<Tracks>
               ),
             ),
           ),
-          Container(
-              height: 79,
-              width: 900,
-              color: Colors.red.withOpacity(0.5),
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Colors.grey,
-                ),
-                title: Text('Now Playing'),
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => MusicPlayer(
-                            songInfo: songs[currentIndex],
-                            key: key,
-                          )));
-                },
-                trailing: GestureDetector(
-                    child: Icon(
-                      Icons.play_arrow,
-                      size: 47,
-                      color: Colors.black,
-                    ),
-                    onTap: () {
-                      print("hi guys");
-                    }),
-              )),
+          // Container(
+          //     height: 79,
+          //     width: 900,
+          //     color: Colors.red.withOpacity(0.5),
+          //     child: ListTile(
+          //       leading: CircleAvatar(
+          //         radius: 40,
+          //         backgroundColor: Colors.grey,
+          //       ),
+          //       title: Text('Now Playing'),
+          //       onTap: () {
+          //         Navigator.of(context).push(MaterialPageRoute(
+          //             builder: (context) => MusicPlayer(
+          //                   songInfo: songs[currentIndex],
+          //                   key: key,
+          //                 )));
+          //       },
+          //       trailing: GestureDetector(
+          //           child: Icon(
+          //             Icons.play_arrow,
+          //             size: 47,
+          //             color: Colors.black,
+          //           ),
+          //           onTap: () {
+          //             print("hi guys");
+          //           }),
+          //     )),
         ],
       ),
     );

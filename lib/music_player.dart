@@ -129,178 +129,142 @@ class MusicPlayerState extends State<MusicPlayer>
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.black,
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
             },
             icon: Icon(
               Icons.arrow_back_ios_sharp,
-              color: Colors.black,
+              color: Colors.white,
             )),
         title: Text(
           '${widget.songInfo.title}',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
       ),
       body: Container(
-
- decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/bee1.jpg'),
-                    fit: BoxFit.cover)),
-
-        child:Stack(
-         
-            children: <Widget>[
-              Positioned(
-
-left: 100,
-top: 80,
-
-                              child: Container(
-                  color: Colors.green,
-                  child: CircleAvatar(
-                    radius: 95,
-                    backgroundColor: Colors.white,
-                    backgroundImage: widget.songInfo.albumArtwork == null
-                        ? AssetImage('assets/images/bee.png')
-                        : FileImage(File(widget.songInfo.albumArtwork)),
-                  ),
-                ),
+        margin: EdgeInsets.fromLTRB(0, 0, 0, 5),
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                alignment: Alignment.center,
+                image: AssetImage('assets/images/bee1.jpg'),
+                fit: BoxFit.fill)),
+        child: Column(
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.only(top: 70),
+              child: CircleAvatar(
+                radius: 100,
+                backgroundColor: Colors.blue[100].withOpacity(.2),
+                backgroundImage: widget.songInfo.albumArtwork == null
+                    ? AssetImage('assets/images/bee.png')
+                    : FileImage(File(widget.songInfo.albumArtwork)),
               ),
-              Container(
-                color: Colors.red,
-                margin: EdgeInsets.fromLTRB(10, 100, 0, 10),
-                child: Text(
-                  widget.songInfo.title,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w600),
-                ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(10, 100, 0, 0),
+              child: Text(
+                widget.songInfo.title,
+                style: TextStyle(
+                    color: Colors.blue[100],
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600),
               ),
-            Positioned(
-              top: 300,
-                              child: Container(
-                      color: Colors.blue,
-                  margin: EdgeInsets.fromLTRB(0, 20, 6, 0),
-                  child: Text(
-                    widget.songInfo.artist,
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 20, 6, 0),
+              child: Text(
+                widget.songInfo.artist,
+                style: TextStyle(
+                    color: Colors.blue[100],
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: Slider(
+                inactiveColor: Colors.black,
+                activeColor: Colors.blue,
+                min: minimumValue,
+                max: maximumValue,
+                value: currentValue,
+                onChanged: (value) {
+                  currentValue = value;
+
+                  player.seek(Duration(milliseconds: currentValue.round()));
+                },
+              ),
+            ),
+            Container(
+              transform: Matrix4.translationValues(0, -5, 0),
+              margin: EdgeInsets.fromLTRB(30, 0, 29, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    currentTime,
                     style: TextStyle(
                         color: Colors.grey,
                         fontSize: 12.5,
                         fontWeight: FontWeight.w500),
                   ),
-                ),
+                  Text(
+                    endTime,
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
               ),
-              Container(
-                    
-                child: Slider(
-                  inactiveColor: Colors.black12,
-                  activeColor: Colors.black,
-                  min: minimumValue,
-                  max: maximumValue,
-                  value: currentValue,
-                  onChanged: (value) {
-                    currentValue = value;
-
-                    player.seek(Duration(milliseconds: currentValue.round()));
-                  },
-                ),
+            ),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                    child: Icon(
+                      Icons.skip_previous,
+                      color: Colors.blue,
+                      size: 55,
+                    ),
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      widget.changeTrack(false);
+                    },
+                  ),
+                  GestureDetector(
+                    child: Icon(
+                      isPlaying ? Icons.pause : Icons.play_arrow,
+                      color: Colors.blue,
+                      size: 75,
+                    ),
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      changeStatus();
+                      pauseNoti();
+                    },
+                  ),
+                  GestureDetector(
+                    child: Icon(
+                      Icons.skip_next,
+                      color: Colors.blue,
+                      size: 55,
+                    ),
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      widget.changeTrack(true);
+                    },
+                  ),
+                ],
               ),
-              Container(
-                color: Colors.pink,
-                transform: Matrix4.translationValues(0, -5, 0),
-                margin: EdgeInsets.fromLTRB(30, 0, 29, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      currentTime,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      endTime,
-                      style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12.5,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                    color: Colors.indigo,
-                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      child: Icon(
-                        Icons.skip_previous,
-                        color: Colors.black,
-                        size: 55,
-                      ),
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        widget.changeTrack(false);
-                      },
-                    ),
-                    GestureDetector(
-                      child: Icon(
-                        isPlaying ? Icons.pause : Icons.play_arrow,
-                        color: Colors.black,
-                        size: 75,
-                      ),
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        changeStatus();
-                        pauseNoti();
-                      },
-                    ),
-                    GestureDetector(
-                      child: Icon(
-                        Icons.skip_next,
-                        color: Colors.black,
-                        size: 55,
-                      ),
-                      behavior: HitTestBehavior.translucent,
-                      onTap: () {
-                        widget.changeTrack(true);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.fromLTRB(10, 25, 10, 50),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      child: Icon(
-                        Icons.favorite,
-                        size: 40,
-                        color: Colors.red,
-                      ),
-                    ),
-                    GestureDetector(
-                      child: Icon(
-                        Icons.playlist_add,
-                        size: 40,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      
+      ),
     );
   }
 }
