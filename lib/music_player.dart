@@ -143,19 +143,34 @@ class MusicPlayerState extends State<MusicPlayer>
           style: TextStyle(color: Colors.black),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.fromLTRB(5, 50, 10, 5),
-          child: Column(
+      body: Container(
+
+ decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/bee1.jpg'),
+                    fit: BoxFit.cover)),
+
+        child:Stack(
+         
             children: <Widget>[
-              CircleAvatar(
-                radius: 95,
-                backgroundColor: Colors.white,
-                backgroundImage: widget.songInfo.albumArtwork == null
-                    ? AssetImage('assets/images/bee.png')
-                    : FileImage(File(widget.songInfo.albumArtwork)),
+              Positioned(
+
+left: 100,
+top: 80,
+
+                              child: Container(
+                  color: Colors.green,
+                  child: CircleAvatar(
+                    radius: 95,
+                    backgroundColor: Colors.white,
+                    backgroundImage: widget.songInfo.albumArtwork == null
+                        ? AssetImage('assets/images/bee.png')
+                        : FileImage(File(widget.songInfo.albumArtwork)),
+                  ),
+                ),
               ),
               Container(
+                color: Colors.red,
                 margin: EdgeInsets.fromLTRB(10, 100, 0, 10),
                 child: Text(
                   widget.songInfo.title,
@@ -165,29 +180,37 @@ class MusicPlayerState extends State<MusicPlayer>
                       fontWeight: FontWeight.w600),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 20, 6, 0),
-                child: Text(
-                  widget.songInfo.artist,
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12.5,
-                      fontWeight: FontWeight.w500),
+            Positioned(
+              top: 300,
+                              child: Container(
+                      color: Colors.blue,
+                  margin: EdgeInsets.fromLTRB(0, 20, 6, 0),
+                  child: Text(
+                    widget.songInfo.artist,
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w500),
+                  ),
                 ),
               ),
-              Slider(
-                inactiveColor: Colors.black12,
-                activeColor: Colors.black,
-                min: minimumValue,
-                max: maximumValue,
-                value: currentValue,
-                onChanged: (value) {
-                  currentValue = value;
+              Container(
+                    
+                child: Slider(
+                  inactiveColor: Colors.black12,
+                  activeColor: Colors.black,
+                  min: minimumValue,
+                  max: maximumValue,
+                  value: currentValue,
+                  onChanged: (value) {
+                    currentValue = value;
 
-                  player.seek(Duration(milliseconds: currentValue.round()));
-                },
+                    player.seek(Duration(milliseconds: currentValue.round()));
+                  },
+                ),
               ),
               Container(
+                color: Colors.pink,
                 transform: Matrix4.translationValues(0, -5, 0),
                 margin: EdgeInsets.fromLTRB(30, 0, 29, 0),
                 child: Row(
@@ -211,6 +234,7 @@ class MusicPlayerState extends State<MusicPlayer>
                 ),
               ),
               Container(
+                    color: Colors.indigo,
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -276,7 +300,7 @@ class MusicPlayerState extends State<MusicPlayer>
             ],
           ),
         ),
-      ),
+      
     );
   }
 }

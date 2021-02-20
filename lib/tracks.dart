@@ -5,23 +5,18 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:music_beta/music_player.dart';
 
 class Tracks extends StatefulWidget {
- 
-
   _TracksState createState() => _TracksState();
 }
 
 class _TracksState extends State<Tracks>
     with AutomaticKeepAliveClientMixin<Tracks> {
-
   final FlutterAudioQuery audioQuery = FlutterAudioQuery();
   List<SongInfo> songs = [];
-  
 
   int currentIndex = 0;
   final GlobalKey<MusicPlayerState> key = GlobalKey<MusicPlayerState>();
 
   void initState() {
-    
     super.initState();
     getTracks();
   }
@@ -69,13 +64,10 @@ class _TracksState extends State<Tracks>
         alignment: Alignment.bottomCenter,
         children: [
           Container(
-
-decoration: BoxDecoration(
-
-image: DecorationImage(image: AssetImage('assets/images/bee1.jpg'),
-fit: BoxFit.cover)
-
-),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/bee1.jpg'),
+                    fit: BoxFit.cover)),
 
             // color: Colors.white,
             child: ListView.separated(
@@ -90,9 +82,13 @@ fit: BoxFit.cover)
                       : FileImage(File(songs[index].albumArtwork)),
                 ),
                 title: Text(
-                  songs[index].title, 
-                  style: TextStyle(color: Colors.blue[100]), ),
-                subtitle: Text(songs[index].artist, style: TextStyle(color: Colors.blue[100]),),
+                  songs[index].title,
+                  style: TextStyle(color: Colors.blue[100]),
+                ),
+                subtitle: Text(
+                  songs[index].artist,
+                  style: TextStyle(color: Colors.blue[100]),
+                ),
                 onTap: () {
                   currentIndex = index;
 
@@ -108,7 +104,8 @@ fit: BoxFit.cover)
                     content: Text('please tap on the song to play it'),
                   ));
                 },
-              tileColor: Colors.blue.withOpacity(0.2),),
+                tileColor: Colors.blue.withOpacity(0.2),
+              ),
             ),
           ),
           Container(
@@ -135,7 +132,6 @@ fit: BoxFit.cover)
                       color: Colors.black,
                     ),
                     onTap: () {
-                     
                       print("hi guys");
                     }),
               )),
