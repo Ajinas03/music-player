@@ -49,15 +49,15 @@ class _TracksState extends State<Tracks>
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.black,
         leading: CircleAvatar(
-          backgroundColor: Colors.yellow,
+          backgroundColor: Colors.blue[100].withOpacity(0.2),
           backgroundImage: AssetImage('assets/images/bee.png'),
         ),
         // Icon(Icons.music_note, color: Colors.black),
         title: Text(
-          'Bee_P',
-          style: TextStyle(color: Colors.black),
+          'All Songs',
+          style: TextStyle(color: Colors.blue[100]),
         ),
       ),
       body: Stack(
@@ -78,7 +78,8 @@ class _TracksState extends State<Tracks>
                   radius: 26,
                   backgroundColor: Colors.blue.withOpacity(0.2),
                   backgroundImage: songs[index].albumArtwork == null
-                      ? AssetImage('assets/images/bee.png')
+                      ? AssetImage('assets/images/bee.png') 
+                      
                       : FileImage(File(songs[index].albumArtwork)),
                 ),
                 title: Text(

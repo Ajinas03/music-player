@@ -128,6 +128,7 @@ class MusicPlayerState extends State<MusicPlayer>
     super.build(context);
 
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         leading: IconButton(
@@ -185,8 +186,8 @@ class MusicPlayerState extends State<MusicPlayer>
             Container(
               margin: EdgeInsets.only(top: 20),
               child: Slider(
-                inactiveColor: Colors.black,
-                activeColor: Colors.blue,
+                inactiveColor: Colors.blueGrey,
+                activeColor: Colors.blue[200],
                 min: minimumValue,
                 max: maximumValue,
                 value: currentValue,
@@ -228,7 +229,7 @@ class MusicPlayerState extends State<MusicPlayer>
                   GestureDetector(
                     child: Icon(
                       Icons.skip_previous,
-                      color: Colors.blue,
+                      color: Colors.blue[200],
                       size: 55,
                     ),
                     behavior: HitTestBehavior.translucent,
@@ -239,7 +240,7 @@ class MusicPlayerState extends State<MusicPlayer>
                   GestureDetector(
                     child: Icon(
                       isPlaying ? Icons.pause : Icons.play_arrow,
-                      color: Colors.blue,
+                      color: Colors.blue[200],
                       size: 75,
                     ),
                     behavior: HitTestBehavior.translucent,
@@ -251,7 +252,7 @@ class MusicPlayerState extends State<MusicPlayer>
                   GestureDetector(
                     child: Icon(
                       Icons.skip_next,
-                      color: Colors.blue,
+                      color: Colors.blue[200],
                       size: 55,
                     ),
                     behavior: HitTestBehavior.translucent,
